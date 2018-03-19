@@ -397,6 +397,17 @@ test('error fallthrough', function (done) {
     });
 });
 
+test('promises still have undesirable aspects', function () {
+  return fetchCurrentCity()
+    .then(function (city) {
+      return fetchWeather(city);
+    })
+    .then(function (weather) {
+      expect(`The weather is ${weather.temp}`)
+        .toBe('The weather is 50');
+    })
+})
+
 test('reusing error handlers - error anywhere!', function (done) {
 
   // compare this to the test above "error fallthrough",
